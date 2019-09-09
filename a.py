@@ -106,20 +106,19 @@ while(True):
     dis = colorToDistance(color)
     #print(dis)
     #print(pixelToComponents((cX,cY), dis))
-    f_c=pixelToComponents((200, 194), dis)
+    f_c= pixelToComponents((200, 194), dis)
     secondary_dest=[f_c[0],f_c[1], f_c[2], 14]
     stacks.append(secondary_dest)
     p = ((stacks[-1][0]-stacks[0][0])**2+(stacks[-1][1]-stacks[0][1])**2+(stacks[-1][2]-stacks[0][2]))**(1/2)
     if len(stacks)==1:
-        airsim.moveToPositionAsync(stacks[-1][0],stacks[-1][1],stacks[-1][2],14)
+        airsim.moveToPositionAsync(stacks[-1][0],stacks[-1][1],stacks[-1][2],14).join()
+        break
+
     elif len(stacks)>1:
-        client.moveToPositionAsync(stacks[-1][0],stacks[-1][1],stacks[-1][2],14)
+        client.moveToPositionAsync(stacks[-1][0],stacks[-1][1],stacks[-1][2],14).join()
         stacks.pop()
         if len(stacks)==1:
             airsim.moveToPositionAsync(stacks[-1][0],stacks[-1][1],stacks[-1][2],14)
     else:
         None
         #client.moveToPositionAsync(stacks[-1][0],stacks[-1][1],stacks[-1][2],14).join()
-    if p == 0:
-        break
-#    stacks.pop()
